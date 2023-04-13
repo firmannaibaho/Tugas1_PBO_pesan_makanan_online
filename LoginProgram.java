@@ -144,45 +144,52 @@ public class Main {
         }
     }
 
-    public static void createOrder() {
-        System.out.print("\nEnter the number of the restaurant: ");
-        int restaurantNumber = Integer.parseInt(scanner.nextLine()) - 1;
-        if (restaurantNumber < 0 || restaurantNumber >= restaurants.size()) {
-            System.out.println("Invalid restaurant number.");
-            return;
-        }
-        Restaurant restaurant = restaurants.get(restaurantNumber);
-
-        ArrayList<OrderItem> orderItems = new ArrayList<>();
-        while (true) {
-            System.out.print("Enter the number of the menu item (0 to finish): ");
-            int menuItemNumber = Integer.parseInt(scanner.nextLine()) - 1;
-            if (menuItemNumber < -1 || menuItemNumber >= restaurant.getMenu().size()) {
-                System.out.println("Invalid menu item number.");
-            } else if (menuItemNumber == -1) {
-                break;
-            } else {
-                MenuItem menuItem = restaurant.getMenu().get(menuItemNumber);
-                System.out.print("Enter the quantity: ");
-                int quantity = Integer.parseInt(scanner.nextLine());
-                orderItems.add(new OrderItem(menuItem, quantity));
-            }
-        }
-
-        System.out.print("Enter the distance (in km) to your location: ");
-        double distance = Double.parseDouble(scanner.nextLine());
-
-        int total = 0;
-        for (OrderItem orderItem : orderItems) {
-            total += orderItem.getMenuItem().getPrice() * orderItem.getQuantity();
-        }
-        int deliveryFee = (int) Math.ceil(distance) * 5000;
-        int grandTotal = total + deliveryFee;
-
-        Order order = new Order(restaurantNumber, orderItems, distance, grandTotal);
-        orders.add(order);
-        System.out.println("Order created.");
+public static void createOrder() {
+    System.out.print("\nEnter the number of the restaurant: ");
+    int restaurantNumber = Integer.parseInt(scanner.nextLine()) - 1;
+    if (restaurantNumber < 0 || restaurantNumber >= restaurants.size()) {
+        System.out.println("Invalid restaurant number.");
+        return;
     }
+    Restaurant restaurant = restaurants.get(restaurantNumber);
+    System.out.println("\nMenu for " + restaurant.getName() + ":");
+
+    ArrayList<MenuItem> menu = restaurant.getMenu();
+    for (int i = 0; i < menu.size(); i++) {
+        MenuItem menuItem = menu.get(i);
+        System.out.println((i+1) + ". " + menuItem.getName() + " - Rp" + menuItem.getPrice());
+    }
+
+    ArrayList<OrderItem> orderItems = new ArrayList<>();
+    while (true) {
+        System.out.print("\nEnter the number of the menu item (0 to finish): ");
+        int menuItemNumber = Integer.parseInt(scanner.nextLine()) - 1;
+        if (menuItemNumber < -1 || menuItemNumber >= restaurant.getMenu().size()) {
+            System.out.println("Invalid menu item number.");
+        } else if (menuItemNumber == -1) {
+            break;
+        } else {
+            MenuItem menuItem = restaurant.getMenu().get(menuItemNumber);
+            System.out.print("Enter the quantity: ");
+            int quantity = Integer.parseInt(scanner.nextLine());
+            orderItems.add(new OrderItem(menuItem, quantity));
+        }
+    }
+
+    System.out.print("Enter the distance (in km) to your location: ");
+    double distance = Double.parseDouble(scanner.nextLine());
+
+    int total = 0;
+    for (OrderItem orderItem : orderItems) {
+        total += orderItem.getMenuItem().getPrice() * orderItem.getQuantity();
+    }
+    int deliveryFee = (int) Math.ceil(distance) * 5000;
+    int grandTotal = total + deliveryFee;
+
+    Order order = new Order(restaurantNumber, orderItems, distance, grandTotal);
+    orders.add(order);
+    System.out.println("\nOrder created.");
+}
 
     public static void printOrders() {
         System.out.println("\nOrders:");
