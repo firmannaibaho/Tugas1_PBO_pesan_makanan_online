@@ -96,12 +96,12 @@ public static void addRestaurant() {
     String address = scanner.nextLine();
 
     ArrayList<MenuItem> menu = new ArrayList<>();
-    boolean addMore = true; // tambahkan variabel untuk melakukan perulangan
-    while (addMore) { // perulangan akan terus berjalan selama variabel addMore bernilai true
+    boolean addMore = true; 
+    while (addMore) { 
         System.out.print("Menu item name (empty to finish): ");
         String itemName = scanner.nextLine();
         if (itemName.isEmpty()) {
-            addMore = false; // jika pengguna memilih untuk tidak menambahkan lagi menu, variabel addMore diubah menjadi false dan perulangan berhenti
+            addMore = false; 
         } else {
             System.out.print("Menu item price: ");
             int itemPrice = Integer.parseInt(scanner.nextLine());
