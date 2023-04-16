@@ -73,14 +73,21 @@ public class Main {
         }
     }
 
-    public static void printRestaurants() {
-        System.out.println("\nRestaurants:");
-        for (int i = 0; i < restaurants.size(); i++) {
-            Restaurant restaurant = restaurants.get(i);
-            System.out.println((i + 1) + ". " + restaurant.getName());
-            System.out.println("   " + restaurant.getAddress());
+   public static void printRestaurants() {
+    System.out.println("\nRestaurants:");
+    for (int i = 0; i < restaurants.size(); i++) {
+        Restaurant restaurant = restaurants.get(i);
+        System.out.println((i + 1) + ". " + restaurant.getName());
+        System.out.println("   " + restaurant.getAddress());
+        System.out.println("   Menu:");
+        for (int j = 0; j < restaurant.getMenu().size(); j++) {
+            MenuItem menuItem = restaurant.getMenu().get(j);
+            System.out.println("   " + (j + 1) + ". " + menuItem.getName() + " - " + menuItem.getPrice());
         }
+        System.out.println();
     }
+}
+
 
     public static void addRestaurant() {
         System.out.print("\nName: ");
