@@ -89,27 +89,29 @@ public class Main {
 }
 
 
-    public static void addRestaurant() {
-        System.out.print("\nName: ");
-        String name = scanner.nextLine();
-        System.out.print("Address: ");
-        String address = scanner.nextLine();
+public static void addRestaurant() {
+    System.out.print("\nName: ");
+    String name = scanner.nextLine();
+    System.out.print("Address: ");
+    String address = scanner.nextLine();
 
-        ArrayList<MenuItem> menu = new ArrayList<>();
-        while (true) {
-            System.out.print("Menu item name (empty to finish): ");
-            String itemName = scanner.nextLine();
-            if (itemName.isEmpty()) {
-                break;
-            }
+    ArrayList<MenuItem> menu = new ArrayList<>();
+    boolean addMore = true; // tambahkan variabel untuk melakukan perulangan
+    while (addMore) { // perulangan akan terus berjalan selama variabel addMore bernilai true
+        System.out.print("Menu item name (empty to finish): ");
+        String itemName = scanner.nextLine();
+        if (itemName.isEmpty()) {
+            addMore = false; // jika pengguna memilih untuk tidak menambahkan lagi menu, variabel addMore diubah menjadi false dan perulangan berhenti
+        } else {
             System.out.print("Menu item price: ");
             int itemPrice = Integer.parseInt(scanner.nextLine());
             menu.add(new MenuItem(itemName, itemPrice));
         }
-
-        restaurants.add(new Restaurant(name, address, menu));
-        System.out.println("Restaurant added.");
     }
+
+    restaurants.add(new Restaurant(name, address, menu));
+    System.out.println("Restaurant added.");
+}
 
     public static void removeRestaurant() {
         System.out.print("\nEnter the number of the restaurant to remove: ");
